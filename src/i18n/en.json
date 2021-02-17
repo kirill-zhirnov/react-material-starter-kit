@@ -1,0 +1,25 @@
+{
+	"login": "Login",
+	"logout": "Logout",
+	"email": "Email",
+	"password": "Password",
+	"loginPage": {
+		"title": "Authorization"
+	},
+	"logo": "Inspired investments",
+	"system": {
+		"pageNotFound": "Page is not found",
+		"homePage": "Home page",
+		"tryStartWith": "Try start with",
+		"closeModal": "Close"
+	},
+	"homePage": {
+		"title": "Red barnet",
+		"metaDescription": "Red barnet website description",
+		"h1": "Welcome to red-barnet",
+		"listHeader": "Here you can find a list of courses, which you can use in a classroom."
+	},
+	"saving": "Saving",
+	"copy": "Copy",
+	"copied": "Copied!"
+}

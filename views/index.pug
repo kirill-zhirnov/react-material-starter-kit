@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	#root
+		!=staticRender
+
+	script
+		!='window.__APP__=' + clientConfig
+
+	each src in scriptTags
+		script(src=src type="text/javascript" async)

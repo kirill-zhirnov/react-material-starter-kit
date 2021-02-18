@@ -9,11 +9,19 @@ const writeFile = util.promisify(fs.writeFile);
 require('dotenv').config();
 
 function makeI18nFiles() {
-	const daPath = `${__dirname}/runtime/ru.json`;
+	const jsonFilePath = `${__dirname}/runtime/${process.env.I18N_LANG}.json`;
 
 	return mkdirp(`${__dirname}/runtime`)
-		.then(() => axios.get(`${process.env.API_BACKEND_PREFIX}/i18n/get-json/frontend?lang=ru`))
-		.then(({data}) => writeFile(daPath, JSON.stringify(data), {encoding: 'utf8', flag: 'w'}))
+		.then(() => {
+			if (['1', 'true'].includes(process.env.I18N_LOAD_LANG_ON_BUILD)) {
+				return axios.get(`${process.env.API_BACKEND_PREFIX}/i18n/get-json/frontend?lang=${process.env.I18N_LANG}`);
+			} else {
+				return {
+					data: {}
+				};
+			}
+		})
+		.then(({data}) => writeFile(jsonFilePath, JSON.stringify(data), {encoding: 'utf8', flag: 'w'}))
 	;
 }
 

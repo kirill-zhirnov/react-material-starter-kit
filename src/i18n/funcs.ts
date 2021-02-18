@@ -21,8 +21,8 @@ export const initI18n = () => {
 			en: {
 				translation: require('./en.json')
 			},
-			ru: {
-				translation: require('../../runtime/ru.json')
+			[process.env.I18N_LANG]: {
+				translation: require(`../../runtime/${process.env.I18N_LANG}.json`)
 			}
 		};
 	} else {

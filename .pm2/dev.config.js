@@ -18,6 +18,7 @@ module.exports = {
 				// './src/client/**/*.ts',
 				// './src/client/**/*.tsx',
 				'./src/@types/**/*.ts',
+				'./src/i18n/**/*.json'
 			],
 			ignore_watch: [
 				'node_modules',

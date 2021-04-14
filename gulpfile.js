@@ -1,4 +1,3 @@
-const {series} = require('gulp');
 const axios = require('axios');
 const mkdirp = require('mkdirp');
 const fs = require('fs');

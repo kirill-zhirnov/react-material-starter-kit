@@ -1,8 +1,9 @@
 import rootReducer from './reducers';
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
-const middleware = [logger];
+const middleware = [thunk, logger];
 
 export default function makeStore(preloadedState = {}) {
 	const store = configureStore({

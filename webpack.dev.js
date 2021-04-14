@@ -1,13 +1,14 @@
-const { merge } = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
 const path = require('path');
+
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const outputPath = path.resolve(__dirname, 'public/dist');
 
 const out = merge(common, {
 	mode: 'development',
-	watch: true,
 	output: {
 		publicPath: 'http://localhost:9000/',
 		filename: '[name].bundle.js',
@@ -26,12 +27,45 @@ const out = merge(common, {
 			'Access-Control-Allow-Origin': '*'
 		},
 	},
+	module: {
+		rules: [
+			{
+				test: /\.tsx?$/,
+				loader: 'ts-loader',
+				exclude: /node_modules/,
+				options: {
+					compilerOptions: require('./tsconfig.json').compilerOptions
+				},
+			},
+			{
+				test: /\.scss$/,
+				use: [
+					{
+						loader: 'style-loader',
+					},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'sass-loader'
+					},
+				],
+			},
+			{
+				test: /\.css$/,
+				use: [
+					{loader: 'style-loader'},
+					{loader: 'css-loader'}
+				],
+			},
+		]
+	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify('development'),
-			}
+		new WebpackAssetsManifest({
+			writeToDisk: true,
+			output: `${outputPath}/manifest.json`,
+			publicPath: true
 		}),
 	]
 });

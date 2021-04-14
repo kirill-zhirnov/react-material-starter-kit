@@ -11,7 +11,9 @@ html.theme-red-barnet
 		//meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0")
 
 		!=titleTag
-		!=styleTags
+		if stylesSrc
+			each src in stylesSrc
+				link(href=src rel="stylesheet")
 
 		if jss
 			style(id="jss-server-side")

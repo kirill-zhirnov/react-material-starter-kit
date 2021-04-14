@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import ReactDom from 'react-dom';
 import App from './client/App';
 import React, {Suspense} from 'react';
@@ -12,7 +15,9 @@ import Spinner from './client/components/Spinner';
 initI18n();
 
 import 'animate.css/animate.css';
-import 'fontsource-roboto';
+import '@fontsource/roboto';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 import '../styles/styles.scss';
 
 const config = window['__APP__'];

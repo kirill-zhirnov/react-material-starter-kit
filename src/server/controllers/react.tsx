@@ -75,36 +75,33 @@ export default class ReactController extends BasicController {
 
 		const jss = serverSideRendering ? sheets.toString() : false;
 
-		const styleTags = '';
-		let scriptTags = ['http://localhost:9000/main.bundle.js'];
+		const stylesSrc = [];
+		const scriptsSrc = [];
 
 		const manifestPath = `${registry.get('rootPath')}/public/dist/manifest.json`;
-		if (['production', 'staging'].includes(process.env.NODE_ENV as unknown as string) && fs.existsSync(manifestPath)) {
-			const content = await readFile(manifestPath, {encoding: 'utf8'});
-
+		if (fs.existsSync(manifestPath)) {
 			try {
+				const content = await readFile(manifestPath, {encoding: 'utf8'});
 				const manifest = JSON.parse(content);
 
 				if (manifest['main.js']) {
-					scriptTags = [`/dist/${manifest['main.js']}`];
+					scriptsSrc.push(manifest['main.js']);
+				}
+
+				if (manifest['main.css']) {
+					stylesSrc.push(manifest['main.css']);
 				}
 			} catch (e) {
-				console.error('React controller - parse manifest', e);
+				console.error('Error parsing manifest.json:', e);
 			}
 		}
-
-			// htmlWebpackPluginFile = `${registry.get('rootPath')}/public/dist/index.html`
-		// if (!registry.get('isDev') && fs.existsSync(htmlWebpackPluginFile)) {
-		// 	const content = await readFile(htmlWebpackPluginFile, {encoding: 'utf8'});
-		// 	[styleTags, scriptTags] = content.split('<br/>');
-		// }
 
 		this.response.render('index', {
 			titleTag,
 			staticRender,
 			clientConfig,
-			styleTags,
-			scriptTags,
+			stylesSrc,
+			scriptsSrc,
 			jss
 		});
 

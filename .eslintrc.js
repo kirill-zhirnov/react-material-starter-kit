@@ -7,7 +7,9 @@ module.exports = {
 	},
 	'extends': [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/eslint-recommended'
+		'plugin:@typescript-eslint/eslint-recommended',
+		'plugin:react/recommended',
+		'plugin:react-hooks/recommended'
 	],
 	'globals': {
 		'Atomics': 'readonly',
@@ -20,12 +22,20 @@ module.exports = {
 	},
 	'plugins': [
 		'@typescript-eslint',
+		'react',
 		'react-hooks'
 	],
+	'settings': {
+		'react': {
+			'version': 'detect'
+		}
+	},
 	'rules': {
 		'semi': ['error', 'always'],
 		'quotes': ['error', 'single'],
 		'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
+		'object-curly-spacing': ['error', 'never'],
+		'array-bracket-spacing': ['error', 'never'],
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		// '@typescript-eslint/no-explicit-any': 1,
 		'@typescript-eslint/no-unused-vars': 'warn',

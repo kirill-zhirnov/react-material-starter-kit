@@ -4,7 +4,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
 import {cleanPromises} from '../../redux/reducers/xhr';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 class LoadingLine extends Component<{
 	promises: Promise<any>[],

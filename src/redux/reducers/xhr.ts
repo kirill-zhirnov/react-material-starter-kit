@@ -15,7 +15,7 @@ const xhrSlice = createSlice({
 	}
 });
 
-export const { addPromise, cleanPromises } = xhrSlice.actions;
+export const {addPromise, cleanPromises} = xhrSlice.actions;
 
 export default xhrSlice.reducer;
 

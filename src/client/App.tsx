@@ -6,8 +6,9 @@ import AuthLoginPage from './pages/auth/Login';
 import LoadingLine from './components/LoadingLine';
 import HomePage from './pages/Home';
 import Page404 from './pages/system/Page404';
+import DashboardIndex from './pages/dashboard/Index';
 
-export default () => {
+const App = () => {
 	useEffect(() => {
 		const jssStyles = document.querySelector('#jss-server-side');
 		if (jssStyles) {
@@ -21,8 +22,10 @@ export default () => {
 			<Switch>
 				<AppRoute exact path="/" component={HomePage} />
 				<AppRoute path="/auth/login" component={AuthLoginPage} />
+				<AppRoute path="/dashboard" component={DashboardIndex} />
 				<AppRoute component={Page404} />
 			</Switch>
 		</>
 	);
 };
+export default App;

@@ -10,7 +10,7 @@
     "dev-webpack": "npx gulp && npx webpack serve --config webpack.dev.js",
     "build": "npx tsc --project tsconfig.json && npx gulp && rm -rf ./public/dist && npx webpack --config webpack.prod.js",
     "start": "npx pm2-runtime ./.pm2/cloud.config.js",
-    "lint": "npx eslint --ext .ts --ext .tsx ./src/",
+    "lint": "npx eslint --ext .ts --ext .tsx ./src/ && npx stylelint styles/**/*.scss",
     "postinstall": "npx pm2 install typescript"
   },
   "dependencies": {
@@ -97,6 +97,9 @@
     "postcss": "^8.2.10",
     "postcss-loader": "^5.2.0",
     "postcss-preset-env": "^6.7.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "stylelint-config-standard": "^22.0.0",
     "webpack": "^5.32.0",
     "webpack-assets-manifest": "^5.0.4",
     "webpack-cli": "^4.6.0",

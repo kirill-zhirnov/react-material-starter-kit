@@ -2,12 +2,14 @@ import {Action, combineReducers} from 'redux';
 import xhrReducers from './reducers/xhr';
 import userReducers from './reducers/user';
 import errorReducers from './reducers/error';
+import alertReducers from './reducers/alert';
 import {ThunkAction} from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
 	xhr: xhrReducers,
 	user: userReducers,
-	error: errorReducers
+	error: errorReducers,
+	alert: alertReducers
 });
 export default rootReducer;
 

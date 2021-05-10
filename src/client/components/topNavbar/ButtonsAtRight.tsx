@@ -62,9 +62,9 @@ function ButtonsAtRight({user, setUser, addPromise, history}: ConnectedProps<typ
 			</IconButton>
 			<Menu
 				anchorEl={anchorEl}
-				anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+				anchorOrigin={{vertical: 'top', horizontal: 'right'}}
 				keepMounted
-				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+				transformOrigin={{vertical: 'top', horizontal: 'right'}}
 				open={isProfileMenuOpen}
 				onClose={handleProfileMenuClose}
 			>
@@ -72,7 +72,7 @@ function ButtonsAtRight({user, setUser, addPromise, history}: ConnectedProps<typ
 					<ListItemIcon>
 						<DashboardIcon fontSize="small" />
 					</ListItemIcon>
-					<ListItemText primary={t('tutor.dashboard')} />
+					<ListItemText primary={t('dashboard.title')} />
 				</MenuItem>
 				<MenuItem onClick={handleLogout}>
 					<ListItemIcon>

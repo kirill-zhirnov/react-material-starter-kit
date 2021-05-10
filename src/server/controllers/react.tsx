@@ -38,10 +38,6 @@ export default class ReactController extends BasicController {
 		);
 
 		if (routerContext.url) {
-			//тк мы не храним юзер на сервере больше, то запросы на админку - будут
-			//всегда с редиректом - это отстой.
-			//Вместо редиректа - мы просто отключаем сервер-сайд рендеринг.
-			// serverSideRendering = false;
 			this.response.redirect(301, routerContext.url);
 			return true;
 		} else if (!staticRender.length) {
@@ -74,7 +70,29 @@ export default class ReactController extends BasicController {
 		}
 
 		const jss = serverSideRendering ? sheets.toString() : false;
+		const {stylesSrc, scriptsSrc} = await this.extractAssetPaths();
 
+		this.response.render('index', {
+			titleTag,
+			staticRender,
+			clientConfig,
+			stylesSrc,
+			scriptsSrc,
+			jss
+		});
+
+		return true;
+	}
+
+	createInitialState(): {} {
+		return {
+			user: {
+				user: this.getReduxUser()
+			},
+		};
+	}
+
+	async extractAssetPaths(): Promise<{stylesSrc: string[], scriptsSrc: string[]}> {
 		const stylesSrc = [];
 		const scriptsSrc = [];
 
@@ -96,23 +114,9 @@ export default class ReactController extends BasicController {
 			}
 		}
 
-		this.response.render('index', {
-			titleTag,
-			staticRender,
-			clientConfig,
-			stylesSrc,
-			scriptsSrc,
-			jss
-		});
-
-		return true;
-	}
-
-	createInitialState(): {} {
 		return {
-			user: {
-				user: this.getReduxUser()
-			},
+			stylesSrc,
+			scriptsSrc
 		};
 	}
 }

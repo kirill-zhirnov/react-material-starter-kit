@@ -1,19 +1,12 @@
-const tutorRegExp = /^\/tutor($|\/)/;
-const studentRegExp = /^\/student($|\/)/;
+import _trim from 'lodash/trim';
 
 export default function isAccessAllowed(route: string, roleAlias: string | undefined): boolean {
-	if (
-		tutorRegExp.test(route)
-		&& (!roleAlias || !['admin', 'super-admin', 'teacher'].includes(roleAlias))
-	) {
-		return false;
-	}
+	const parts = _trim(route, '/').toLowerCase().split('/');
 
-	if (
-		studentRegExp.test(route)
-		&& (!roleAlias || !['tutor-course'].includes(roleAlias))
-	) {
-		return false;
+	if (['dashboard'].includes(parts[0])) {
+		if (!roleAlias || !['admin', 'super-admin', 'client'].includes(roleAlias)) {
+			return false;
+		}
 	}
 
 	return true;

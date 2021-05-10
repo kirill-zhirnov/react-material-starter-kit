@@ -5,7 +5,7 @@ import {
 	Redirect
 } from 'react-router-dom';
 import isAccessAllowed from './auth';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reducers';
 
 import MainLayout from '../layouts/Main';

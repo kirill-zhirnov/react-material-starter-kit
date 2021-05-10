@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IReduxUser} from '../../@types/user';
 
 const userSlice = createSlice({
@@ -13,7 +13,7 @@ const userSlice = createSlice({
 	}
 });
 
-export const { setUser } = userSlice.actions;
+export const {setUser} = userSlice.actions;
 
 export default userSlice.reducer;
 

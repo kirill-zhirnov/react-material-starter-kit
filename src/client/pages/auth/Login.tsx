@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import { Formik, Form, FormikHelpers } from 'formik';
+import {Formik, Form, FormikHelpers} from 'formik';
 import {fieldAttrs} from '../../../lib/utils';
 import {useTranslation} from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -16,12 +16,12 @@ import {setUser} from '../../../redux/reducers/user';
 import {apiUserLogin} from '../../api/user';
 import {withRouter, RouteComponentProps} from 'react-router-dom';
 import {StaticContext} from 'react-router';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import queryString from 'query-string';
 import Alert from '@material-ui/lab/Alert';
+import {alertError} from '../../../redux/reducers/alert';
 
 function AuthLoginPage(
-	{addPromise, setUser, history, location}: ConnectedProps<typeof connector> & RouteComponentProps<{}, StaticContext, {from?: string}>
+	{addPromise, setUser, history, location, alertError}: ConnectedProps<typeof connector> & RouteComponentProps<{}, StaticContext, {from?: string}>
 ) {
 	const {t} = useTranslation();
 	const [externalError, setExternalError] = useState<string | null>(null);
@@ -29,7 +29,6 @@ function AuthLoginPage(
 	const onSubmit = (values: ILoginFormValues, {setSubmitting, setErrors}: FormikHelpers<ILoginFormValues>) => {
 		const promise = apiUserLogin(values.email, values.password)
 			.then(({data: {user}}) => {
-				setSubmitting(false);
 				setUser(user);
 
 				const redirectTo = location.state?.from ? location.state.from : '/';
@@ -37,8 +36,9 @@ function AuthLoginPage(
 			})
 			.catch(({response: {data}}) => {
 				setErrors(data);
-				setSubmitting(false);
-			});
+				alertError({title: t('formHasErrors')});
+			})
+			.finally(() => setSubmitting(false));
 
 		addPromise(promise);
 	};
@@ -68,7 +68,7 @@ function AuthLoginPage(
 	);
 }
 
-const connector = connect(null, {addPromise, setUser});
+const connector = connect(null, {addPromise, setUser, alertError});
 export default withRouter(
 	connector(AuthLoginPage)
 );
@@ -103,16 +103,14 @@ function LoginForm({onSubmit}: {onSubmit: (values: ILoginFormValues, formikHelpe
 						/>
 					</Box>
 					<div className={'text-end'}>
-						<ButtonGroup>
-							<Button color="primary"
-											variant="contained"
-											type={'submit'}
-											endIcon={<LockOpenIcon />}
-											disabled={formikProps.isSubmitting}
-							>
-								{t('login')}
-							</Button>
-						</ButtonGroup>
+						<Button color="primary"
+										variant="contained"
+										type={'submit'}
+										endIcon={<LockOpenIcon />}
+										disabled={formikProps.isSubmitting}
+						>
+							{t('login')}
+						</Button>
 					</div>
 				</Form>
 			)}

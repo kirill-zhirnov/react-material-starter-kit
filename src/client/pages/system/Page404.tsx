@@ -17,7 +17,7 @@ function Page404({user}: ConnectedProps<typeof connector>) {
 	const {t} = useTranslation();
 
 	return (
-		<Route render={({ staticContext }) => {
+		<Route render={({staticContext}) => {
 				if (staticContext) {
 					staticContext.statusCode = 404;
 				}

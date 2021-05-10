@@ -6,7 +6,6 @@
 	"loginPage": {
 		"title": "Authorization"
 	},
-	"logo": "Inspired investments",
 	"system": {
 		"pageNotFound": "Page is not found",
 		"homePage": "Home page",
@@ -14,12 +13,13 @@
 		"closeModal": "Close"
 	},
 	"homePage": {
-		"title": "Red barnet",
-		"metaDescription": "Red barnet website description",
-		"h1": "Welcome to red-barnet",
-		"listHeader": "Here you can find a list of courses, which you can use in a classroom."
+		"title": "Welcome to starter-kit"
+	},
+	"dashboard": {
+		"title": "Dashboard"
 	},
 	"saving": "Saving",
 	"copy": "Copy",
-	"copied": "Copied!"
+	"copied": "Copied!",
+	"formHasErrors": "Form contains errors."
 }

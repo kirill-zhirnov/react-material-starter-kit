@@ -67,6 +67,8 @@ export function	prepareFormikValues<T = {[key: string]: string}>(attrs: {[key: s
 }
 
 export type TGetParams = {[param: string]: string | object | number} | string[];
+export type TPostData = {[param: string]: string | object | number};
+
 export function createGetStr(params: TGetParams, skipRoot: string[] = [], prefix: string = '') {
 	const out: string[] = [];
 	const isArray = Array.isArray(params);

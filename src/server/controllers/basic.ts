@@ -2,8 +2,8 @@ import {Request, Response} from 'express';
 import {Session, SessionData} from 'express-session';
 import _omit from 'lodash/omit';
 import {IUser, IReduxUser} from '../../@types/user';
-import axios, {AxiosResponse, AxiosError, AxiosRequestConfig} from 'axios';
-import {makeBackendUrl, TGetParams, yiiErrors2Formik} from '../../lib/utils';
+import axios, {AxiosResponse, AxiosError, AxiosRequestConfig, Method} from 'axios';
+import {makeBackendUrl, TGetParams, TPostData, yiiErrors2Formik} from '../../lib/utils';
 
 export const VALIDATION_ERROR_HTTP_CODE = 400;
 
@@ -72,32 +72,33 @@ export default abstract class BasicController {
 		}
 	}
 
-	async proxyGetBackendRequest<T = {}>(url: string, getParams: null | TGetParams = null): Promise<AxiosResponse<T> | false> {
-		try {
-			const config: AxiosRequestConfig = {};
-			if (this.getUser()) {
-				config.headers = {
-					Authorization: `Bearer ${this.getUser()!.auth_token}`
-				};
-			}
-
-			return await axios.get<T>(makeBackendUrl(url, getParams), config);
-		} catch (e) {
-			this.processProxyError(e);
-			return false;
-		}
+	proxyDeleteBackendRequest<T = {}>(url: string, getParams: null | TGetParams = null): Promise<AxiosResponse<T> | false> {
+		return this.execBackendRequest<T>('delete', url, getParams);
 	}
 
-	async proxyPostBackendRequest<T = {}>(url: string): Promise<AxiosResponse<T> | false> {
+	proxyGetBackendRequest<T = {}>(url: string, getParams: null | TGetParams = null): Promise<AxiosResponse<T> | false> {
+		return this.execBackendRequest<T>('get', url, getParams);
+	}
+
+	proxyPostBackendRequest<T = {}>(url: string, getParams: null | TGetParams = null): Promise<AxiosResponse<T> | false> {
+		return this.execBackendRequest<T>('post', url, getParams, this.request.body);
+	}
+
+	async execBackendRequest<T = {}>(method: Method, url: string, getParams: null | TGetParams = null, data: TPostData | null = null): Promise<AxiosResponse<T> | false> {
 		try {
-			const config: AxiosRequestConfig = {};
+			const config: AxiosRequestConfig = {
+				method,
+				url: makeBackendUrl(url, getParams),
+				data
+			};
+
 			if (this.getUser()) {
 				config.headers = {
 					Authorization: `Bearer ${this.getUser()!.auth_token}`
 				};
 			}
 
-			return await axios.post<T>(makeBackendUrl(url), this.request.body, config);
+			return await axios(config);
 		} catch (e) {
 			this.processProxyError(e);
 			return false;

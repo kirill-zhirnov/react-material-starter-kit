@@ -5,6 +5,10 @@
   "author": "Kirill Zhirnov",
   "license": "MIT",
   "private": true,
+	"keywords": [
+		"react", "typescript", "material-ui", "express",
+		"pm2", "redis", "starter-kit"
+	],
   "scripts": {
     "dev": "npx pm2-runtime ./.pm2/dev.config.js",
     "dev-webpack": "npx gulp && npx webpack serve --config webpack.dev.js",

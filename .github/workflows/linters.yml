@@ -20,5 +20,7 @@ jobs:
         env:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         validate only typescript:
           VALIDATE_TYPESCRIPT_ES: true
+          VALIDATE_CSS: true
+          CSS_FILE_NAME: .stylelintrc.json
+          LINTER_RULES_PATH: /

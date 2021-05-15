@@ -14,8 +14,6 @@ const out = merge(common, {
 	output: {
 		publicPath: '/dist/',
 		filename: '[name].[fullhash].js',
-		// filename: '[name].bundle.js?ver=[chunkhash]',
-		// chunkFilename: '[name].bundle.js?ver=[chunkhash]',
 		path: outputPath,
 	},
 	module: {

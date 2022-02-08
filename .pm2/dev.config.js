@@ -7,9 +7,9 @@ module.exports = {
 			name: 'node-dev',
 			cwd: rootPath,
 			script: './src/server.ts',
-			// instances: 2,
-			// exec_mode: 'cluster',
-			exec_mode: 'fork',
+			instances: 2,
+			exec_mode: 'cluster',
+			// exec_mode: 'fork',
 			merge_logs: true,
 			watch: [
 				'./src/server.ts',

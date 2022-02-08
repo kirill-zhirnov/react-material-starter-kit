@@ -15,10 +15,9 @@ import Spinner from './client/components/Spinner';
 initI18n();
 
 import 'animate.css/animate.css';
-import '@fontsource/ubuntu';
-// import '@fontsource/roboto';
-// import '@fontsource/roboto/500.css';
-// import '@fontsource/roboto/700.css';
+import '@fontsource/roboto';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 import '../styles/styles.scss';
 
 const config = window['__APP__'];

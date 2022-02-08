@@ -18,11 +18,13 @@ export class Bootstrap {
 
 	setupRedis(): void {
 		const url = process.env.REDIS_URL;
-		const redisClient: RedisClient = redisCreateClient({
-			url
-		});
+		if (url) {
+			const redisClient: RedisClient = redisCreateClient({
+				url
+			});
 
-		registry.set('redis', redisClient);
+			registry.set('redis', redisClient);
+		}
 	}
 }
 

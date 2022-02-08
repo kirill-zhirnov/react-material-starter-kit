@@ -2,6 +2,7 @@ import i18n, {InitOptions} from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import HttpApi from 'i18next-http-backend';
 
+
 export const initI18n = () => {
 	i18n
 		.use(HttpApi)
@@ -16,7 +17,7 @@ export const initI18n = () => {
 		}
 	};
 
-	if (process.env.I18N_LOAD_LANG_ON_BUILD) {
+	if (process.env.I18N_LOAD_LANG_ON_BUILD && ['true', '1'].includes(process.env.I18N_LOAD_LANG_ON_BUILD!)) {
 		options.resources = {
 			en: {
 				translation: require('./en.json')

@@ -1,3 +1,16 @@
+# How to start?
+
+- Copy `.env-example` to `.env`.
+- `yarn install`
+- Go to `boundless-api-client` and `yarn link`
+- Go to `boundless-checkout-react` and `yarn link`
+- Come back to the checkout wrapper folder and:
+- `yarn link boundless-api-client`
+- `yarn link boundless-checkout-react`
+- `yarn dev`
+- `yarn dev-webpack`
+- You might also need to modify cartId at `./src/client/pages/checkoutIndex.tsx`
+
 # React MaterialUI Starter kit (Typescript, Express, Redux, PM2)
 
 This is a starter kit - a boilerplate for a quick start to the development.

@@ -23,30 +23,31 @@ export default class ReactController extends BasicController {
 
 		initI18n();
 		const serverSideRendering = registry.get('serverSideRendering');
-		const sheets = new ServerStyleSheets();
-
-		let staticRender = ReactDOMServer.renderToString(
-			sheets.collect(
-				<HelmetProvider context={helmetContext}>
-					<Provider store={store}>
-						<StaticRouter location={this.request.url} context={routerContext}>
-							<ClientApp/>
-						</StaticRouter>
-					</Provider>
-				</HelmetProvider>
-			)
-		);
-
-		if (routerContext.url) {
-			this.response.redirect(301, routerContext.url);
-			return true;
-		} else if (!staticRender.length) {
-			return false;
-		}
-
-		if (routerContext.statusCode) {
-			this.response.status(routerContext.statusCode);
-		}
+		// const sheets = new ServerStyleSheets();
+		//
+		// let staticRender = ReactDOMServer.renderToString(
+		// 	sheets.collect(
+		// 		<HelmetProvider context={helmetContext}>
+		// 			<Provider store={store}>
+		// 				<StaticRouter location={this.request.url} context={routerContext}>
+		// 					<ClientApp/>
+		// 				</StaticRouter>
+		// 			</Provider>
+		// 		</HelmetProvider>
+		// 	)
+		// );
+		//
+		// if (routerContext.url) {
+		// 	this.response.redirect(301, routerContext.url);
+		// 	return true;
+		// } else if (!staticRender.length) {
+		// 	return false;
+		// }
+		//
+		// if (routerContext.statusCode) {
+		// 	this.response.status(routerContext.statusCode);
+		// }
+		let staticRender = '';
 
 		const finalState = store.getState();
 
@@ -69,7 +70,8 @@ export default class ReactController extends BasicController {
 			staticRender = '';
 		}
 
-		const jss = serverSideRendering ? sheets.toString() : false;
+		// const jss = serverSideRendering ? sheets.toString() : false;
+		const jss = false;
 		const {stylesSrc, scriptsSrc} = await this.extractAssetPaths();
 
 		this.response.render('index', {

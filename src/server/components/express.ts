@@ -12,13 +12,13 @@ import notFoundMiddleware from '../middlewares/notFound';
 export class ExpressBaker {
 	protected app: Application;
 	protected rootPath: string;
-	protected redisClient: RedisClient;
+	protected redisClient: RedisClient | undefined;
 
 	constructor() {
 		this.app = express();
 
 		this.rootPath = registry.get('rootPath');
-		this.redisClient = registry.get('redis');
+		this.redisClient = registry.has('redis') ? registry.get('redis') : undefined;
 	}
 
 	async make(): Promise<Application> {
@@ -63,12 +63,16 @@ export class ExpressBaker {
 	setupSession(): void {
 		const REDIS_SESS_PREFIX: string = process.env.REDIS_SESS_PREFIX as unknown as string || 'sess:';
 		const COOKIE_SECRET: string = process.env.COOKIE_SECRET as unknown as string;
-		const RedisStore = require('connect-redis')(expressSession);
 
-		const redisStore = new RedisStore({
-			client: this.redisClient,
-			prefix: REDIS_SESS_PREFIX
-		});
+		let redisStore = undefined;
+		if (this.redisClient !== undefined) {
+			const RedisStore = require('connect-redis')(expressSession);
+			redisStore = new RedisStore({
+				client: this.redisClient,
+				prefix: REDIS_SESS_PREFIX
+			})
+			;
+		}
 
 		this.app.use(expressSession({
 			store : redisStore,

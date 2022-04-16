@@ -20,7 +20,7 @@ const out = merge(common, {
 		compress: true,
 		port: 9000,
 		hot: true,
-		clientLogLevel: 'debug',
+		// clientLogLevel: 'debug',
 		// disableHostCheck: true,
 		// host: '127.0.0.1',
 		headers: {
